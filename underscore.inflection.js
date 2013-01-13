@@ -94,7 +94,7 @@
     return Inflector;
   }
 
-  Inflector.pluralize = function (word, count, includeNumber) {
+  Inflector.pluralize = _.memoize(function (word, count, includeNumber) {
     var result;
 
     if (typeof count !== 'undefined') {
@@ -114,9 +114,9 @@
     }
 
     return result;
-  };
+  });
 
-  Inflector.singularize = function (word) {
+  Inflector.singularize = _.memoize(function (word) {
     if (_(uncountables).include(word)) {
       return word;
     }
@@ -129,7 +129,7 @@
     });
 
     return result;
-  };
+  });
 
   _.mixin(resetInflections());
 }(_));
